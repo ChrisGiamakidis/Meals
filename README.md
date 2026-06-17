@@ -1,0 +1,1 @@
+Meals Community with Next.js

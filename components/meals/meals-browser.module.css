@@ -1,0 +1,110 @@
+.browser {
+  width: 100%;
+}
+
+.toolbar {
+  width: 90%;
+  max-width: 90rem;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.shareButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f9572a, #ff9b05);
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.shareButton:hover,
+.shareButton:active {
+  background: linear-gradient(90deg, #fd4715, #f9b241);
+  box-shadow: 0 0 12px rgba(242, 100, 18, 0.8);
+}
+
+.emptyState {
+  width: 90%;
+  max-width: 40rem;
+  margin: 4rem auto;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  color: #ddd6cb;
+  background: linear-gradient(135deg, rgba(60, 39, 33, 0.95), rgba(30, 27, 19, 0.95));
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.35);
+}
+
+.emptyState p {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.emptyState a {
+  color: #ffffff;
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.65rem 1.1rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(90deg, #f9572a, #ff9b05);
+  font-weight: 700;
+}
+
+.noResults {
+  width: 90%;
+  max-width: 40rem;
+  margin: 0 auto 2rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  color: #ddd6cb;
+  background: linear-gradient(135deg, rgba(60, 39, 33, 0.95), rgba(30, 27, 19, 0.95));
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.35);
+}
+
+.noResults p {
+  margin: 0 0 1rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.noResults button {
+  padding: 0.65rem 1.1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: linear-gradient(90deg, #f9572a, #ff9b05);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 48rem) {
+  .toolbar {
+    justify-content: stretch;
+  }
+
+  .controls {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .shareButton {
+    width: 100%;
+  }
+}

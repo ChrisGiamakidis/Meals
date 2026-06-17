@@ -1,0 +1,61 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(11, 10, 10, 0.72);
+  backdrop-filter: blur(6px);
+}
+
+.modal {
+  width: min(100%, 32rem);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  color: #ddd6cb;
+  background: linear-gradient(135deg, #2f211d, #17140f);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.4);
+}
+
+.modal h2 {
+  margin: 0 0 0.75rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.modal p {
+  margin: 0 0 1.25rem;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.actions button {
+  min-width: 5.5rem;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.actions button:first-child {
+  color: #ddd6cb;
+  background: #4a3a36;
+}
+
+.actions button:last-child {
+  color: #ffffff;
+  background: linear-gradient(90deg, #f9572a, #ff9b05);
+}
+
+.actions button:disabled {
+  cursor: wait;
+  opacity: 0.75;
+}

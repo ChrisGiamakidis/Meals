@@ -1,0 +1,38 @@
+.meals {
+  width: 90%;
+  max-width: 90rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  grid-gap: 5rem;
+  margin: 2rem auto;
+  list-style: none;
+  padding: 0;
+}
+
+.emptyState {
+  width: 90%;
+  max-width: 40rem;
+  margin: 4rem auto;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  color: #ddd6cb;
+  background: linear-gradient(135deg, rgba(60, 39, 33, 0.95), rgba(30, 27, 19, 0.95));
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.35);
+}
+
+.emptyState p {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.emptyState a {
+  color: #ffffff;
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.65rem 1.1rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(90deg, #f9572a, #ff9b05);
+  font-weight: 700;
+}
