@@ -1,0 +1,257 @@
+.communityShell {
+  width: 90%;
+  max-width: 75rem;
+  margin: 0 auto 5rem;
+  color: #ddd6cb;
+}
+
+.heroCard {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 1.5rem;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, rgba(63, 37, 28, 0.98), rgba(24, 20, 16, 0.98));
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.3);
+}
+
+.kicker,
+.panelLabel {
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 1.2rem;
+  color: #ffb36b;
+  font-weight: 700;
+}
+
+.heroCard h2,
+.feedHeader h3,
+.panel h3 {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.heroCard h2 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.1;
+}
+
+.lead,
+.muted,
+.feedCard p {
+  color: #cdbfb2;
+}
+
+.statsGrid {
+  display: grid;
+  gap: 1rem;
+  align-content: end;
+}
+
+.statsGrid div {
+  padding: 1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.statsGrid strong {
+  display: block;
+  font-size: 2rem;
+  color: #fff;
+}
+
+.statsGrid span {
+  font-size: 0.95rem;
+  color: #cdbfb2;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 22rem 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.sidebar,
+.mainColumn {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.authGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.panel,
+.postComposer,
+.feedCard {
+  width: 100%;
+  max-width: 48rem;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(
+    135deg,
+    rgba(47, 31, 24, 0.98),
+    rgba(24, 20, 16, 0.98)
+  );
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.25);
+}
+
+.panel h3,
+.postComposer h3,
+.feedHeader h3 {
+  margin-bottom: 1rem;
+}
+
+.panel input,
+.postComposer input,
+.postComposer textarea {
+  width: 100%;
+  margin-bottom: 0.85rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(221, 214, 203, 0.15);
+  border-radius: 0.85rem;
+  background: rgba(18, 15, 12, 0.95);
+  color: #fff;
+  font: inherit;
+}
+
+.postComposer textarea {
+  resize: vertical;
+}
+
+.panel input::placeholder,
+.postComposer input::placeholder,
+.postComposer textarea::placeholder {
+  color: #98897d;
+}
+
+.submitButton,
+.secondaryButton {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: 0.85rem;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.submitButton {
+  display: block;
+  width: fit-content;
+  min-width: 12rem;
+  margin: 1rem auto 0;
+  padding: 0.75rem 2rem;
+  background: linear-gradient(90deg, #f9572a, #ff9b05);
+  color: #fff;
+  border: none;
+  border-radius: 0.85rem;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.secondaryButton {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.error {
+  margin: 0 0 0.85rem;
+  color: #ffb3a8;
+}
+
+.demoList {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.demoItem {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.75rem;
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.demoItem span,
+.feedAuthor {
+  color: #b8a99b;
+  font-size: 0.9rem;
+}
+
+.feedSection {
+  display: grid;
+  gap: 1rem;
+}
+
+.feedList {
+  display: grid;
+  gap: 1rem;
+}
+
+.feedMeta {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.feedTag {
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(249, 87, 42, 0.18);
+  color: #ffb98d;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.feedCard h4 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.guestBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 155, 5, 0.18);
+  color: #ffcc8a;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 1rem;
+}
+
+.formGroup label {
+  color: #ffb36b;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 60rem) {
+  .heroCard,
+  .layout,
+  .authGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .communityShell {
+    width: 92%;
+  }
+}

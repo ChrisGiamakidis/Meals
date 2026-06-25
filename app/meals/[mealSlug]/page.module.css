@@ -12,6 +12,8 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .deleteForm {
@@ -28,6 +30,30 @@
 .backLink a:hover,
 .backLink a:active {
   color: #f9b241;
+}
+
+.backLink .editLink,
+.backLink .editLink:link,
+.backLink .editLink:visited {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(90deg, #f9572a, #ff9b05);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  white-space: nowrap;
+  margin-left: auto;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.backLink .editLink:hover,
+.backLink .editLink:active {
+  color: #ffffff;
+  background: linear-gradient(90deg, #fd4715, #f9b241);
+  box-shadow: 0 0 12px rgba(242, 100, 18, 0.8);
 }
 
 .deleteForm {

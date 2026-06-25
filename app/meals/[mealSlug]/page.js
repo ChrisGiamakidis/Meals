@@ -1,22 +1,26 @@
+import { getCommunityAccessData } from "@/lib/community";
+import { getMeal } from "@/lib/meals";
 import Image from "next/image";
 import Link from "next/link";
-import classes from "./page.module.css";
-import { getMeal } from "@/lib/meals";
 import { notFound } from "next/navigation";
+import classes from "./page.module.css";
 
 async function getMealData({ params }) {
   const { mealSlug } = await params;
-  const meal = await getMeal(mealSlug);
+  const [meal, accessData] = await Promise.all([
+    getMeal(mealSlug),
+    getCommunityAccessData(),
+  ]);
 
   if (!meal) {
     notFound();
   }
-  
-  return meal;
+
+  return { meal, accessData };
 }
 
 export async function generateMetadata({ params }) {
-  const meal = await getMealData({ params });
+  const { meal } = await getMealData({ params });
   return {
     title: meal.title,
     description: meal.summary,
@@ -24,14 +28,35 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function MealDetailsPage({ params }) {
-  const meal = await getMealData({ params });
+  const { meal, accessData } = await getMealData({ params });
   meal.instructions = meal.instructions.trim().replaceAll("\n", "<br />");
+  const isSeedMeal = (() => {
+    try {
+      return new URL(meal.image).pathname.startsWith("/seed/");
+    } catch {
+      return true;
+    }
+  })();
+  const canEditMeal =
+    Boolean(accessData.currentUser?.email && meal.creator_email) &&
+    accessData.currentUser.email.toLowerCase() ===
+      meal.creator_email.toLowerCase() &&
+    !accessData.isGuest &&
+    !isSeedMeal;
 
   return (
     <>
       <header className={classes.header}>
         <div className={classes.backLink}>
           <Link href="/meals">&larr; Back to Meals</Link>
+          {canEditMeal ? (
+            <Link
+              href={`/meals/${meal.slug}/edit`}
+              className={classes.editLink}
+            >
+              Edit Meal
+            </Link>
+          ) : null}
         </div>
         <div className={classes.image}>
           <Image

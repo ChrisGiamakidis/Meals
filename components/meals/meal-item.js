@@ -10,7 +10,17 @@ import { DeletedMealsContext } from "../../store/deleted-meals-context";
 import DeleteMealModal from "./delete-meal-modal";
 import classes from "./meal-item.module.css";
 
-export default function MealItem({ id, title, slug, image, summary, creator }) {
+export default function MealItem({
+  id,
+  title,
+  slug,
+  image,
+  summary,
+  creator,
+  creator_email,
+  currentUser,
+  isGuest,
+}) {
   const { hideMeal } = useContext(DeletedMealsContext);
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,6 +33,14 @@ export default function MealItem({ id, title, slug, image, summary, creator }) {
       return true;
     }
   })();
+  const isOwner =
+    Boolean(currentUser?.email && creator_email) &&
+    currentUser.email.toLowerCase() === creator_email.toLowerCase();
+  const canEditMeal =
+    Boolean(currentUser) && !isSeedMeal && isOwner && !isGuest;
+  const canHideSeedMeal = Boolean(currentUser) && isSeedMeal;
+  const canDeleteMeal = Boolean(currentUser) && !isSeedMeal && isOwner;
+  const canUseMealAction = !isGuest && (canHideSeedMeal || canDeleteMeal);
 
   function handleOpenModal() {
     setIsModalOpen(true);
@@ -71,18 +89,24 @@ export default function MealItem({ id, title, slug, image, summary, creator }) {
         <p className={classes.summary}>{summary}</p>
         <div className={classes.actions}>
           <Link href={`/meals/${slug}`}>View Details</Link>
-          <button type="button" onClick={handleOpenModal}>
-            Delete
-          </button>
+          {canEditMeal ? <Link href={`/meals/${slug}/edit`}>Edit</Link> : null}
+          {canUseMealAction ? (
+            <button type="button" onClick={handleOpenModal}>
+              {isSeedMeal ? "Hide" : "Delete"}
+            </button>
+          ) : null}
         </div>
       </div>
-      <DeleteMealModal
-        open={isModalOpen}
-        title={title}
-        isDeleting={isDeleting}
-        onConfirm={handleConfirmDelete}
-        onCancel={handleCloseModal}
-      />
+      {canUseMealAction ? (
+        <DeleteMealModal
+          open={isModalOpen}
+          title={title}
+          action={isSeedMeal ? "hide" : "delete"}
+          isDeleting={isDeleting}
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCloseModal}
+        />
+      ) : null}
     </article>
   );
 }

@@ -9,6 +9,8 @@ import classes from "./delete-meal-modal.module.css";
 export default function DeleteMealModal({
   open,
   title,
+  action = "delete",
+  entityLabel = "meal",
   isDeleting,
   onConfirm,
   onCancel,
@@ -45,16 +47,18 @@ export default function DeleteMealModal({
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 24 }}
           >
-            <h2 id="delete-meal-title">Delete meal?</h2>
+            <h2 id="delete-meal-title">
+              {action === "hide" ? `Hide ${entityLabel}?` : `Delete ${entityLabel}?`}
+            </h2>
             <p>
-              Are you sure you want to delete <strong>{title}</strong>?
+              Are you sure you want to {action} <strong>{title}</strong>?
             </p>
             <div className={classes.actions}>
               <button type="button" onClick={onCancel} disabled={isDeleting}>
                 No
               </button>
               <button type="button" onClick={onConfirm} disabled={isDeleting}>
-                {isDeleting ? "Deleting..." : "Yes"}
+                {isDeleting ? `${action === "hide" ? "Hiding" : "Deleting"}...` : "Yes"}
               </button>
             </div>
           </motion.div>

@@ -1,0 +1,132 @@
+.accessShell {
+  width: 90%;
+  max-width: 75rem;
+  margin: 0 auto 5rem;
+  color: #ddd6cb;
+}
+
+.intro {
+  max-width: 52rem;
+  margin-bottom: 1.5rem;
+}
+
+.intro h2 {
+  margin: 0 0 0.75rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.1;
+}
+
+.intro p {
+  color: #cdbfb2;
+}
+
+.kicker,
+.panelLabel {
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  color: #ffb36b;
+  font-weight: 700;
+}
+
+.authGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.panel,
+.demoPanel {
+  padding: 1.25rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(47, 31, 24, 0.98), rgba(24, 20, 16, 0.98));
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+.panel h3 {
+  margin: 0 0 1rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.panel input {
+  width: 100%;
+  margin-bottom: 0.85rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(221, 214, 203, 0.15);
+  border-radius: 0.75rem;
+  background: rgba(18, 15, 12, 0.95);
+  color: #fff;
+  font: inherit;
+}
+
+.panel input::placeholder {
+  color: #98897d;
+}
+
+.submitButton,
+.secondaryButton {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.submitButton {
+  background: linear-gradient(90deg, #f9572a, #ff9b05);
+  color: #fff;
+}
+
+.secondaryButton {
+  margin-top: 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.muted {
+  color: #cdbfb2;
+}
+
+.error {
+  margin: 0 0 0.85rem;
+  color: #ffb3a8;
+}
+
+.demoPanel {
+  margin-top: 1rem;
+}
+
+.demoList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.demoItem {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.demoItem span {
+  color: #b8a99b;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 60rem) {
+  .authGrid,
+  .demoList {
+    grid-template-columns: 1fr;
+  }
+
+  .accessShell {
+    width: 92%;
+  }
+}

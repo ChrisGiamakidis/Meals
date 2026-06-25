@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-import classes from "./page.module.css";
 import ImageSlideshow from "@/components/images/image-slideshow";
 import { getMeals } from "@/lib/meals";
+import classes from "./page.module.css";
 
 export default async function Home() {
   const meals = await getMeals();
@@ -37,8 +37,8 @@ export default async function Home() {
         <section className={classes.section}>
           <h2>Why NextLevel Food?</h2>
           <p>
-            Join our community to share your own recipes, get inspired by others,
-            and become part of a growing food-loving community.
+            Join our community to share your own recipes, get inspired by
+            others, and become part of a growing food-loving community.
           </p>
         </section>
       </main>

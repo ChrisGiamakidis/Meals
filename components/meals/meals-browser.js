@@ -5,12 +5,14 @@ import { useContext, useMemo, useState } from "react";
 
 import { DeletedMealsContext } from "@/store/deleted-meals-context";
 import MealSearchBar from "./meal-search-bar";
-import MealsGrid from "./meals-grid";
 import classes from "./meals-browser.module.css";
+import MealsGrid from "./meals-grid";
 
-export default function MealsBrowser({ meals }) {
+export default function MealsBrowser({ meals, accessData }) {
   const { hiddenMealIds, isLoaded } = useContext(DeletedMealsContext);
   const [searchTerm, setSearchTerm] = useState("");
+  const currentUser = accessData?.currentUser ?? null;
+  const isGuest = accessData?.isGuest ?? false;
 
   const visibleMeals = useMemo(
     () => meals.filter((meal) => !hiddenMealIds.includes(String(meal.id))),
@@ -41,7 +43,7 @@ export default function MealsBrowser({ meals }) {
     return (
       <div className={classes.emptyState}>
         <p>No meals available yet. Please add yours.</p>
-        <Link href="/meals/share">+ Add Meal</Link>
+        {currentUser ? <Link href="/meals/share">+ Add Meal</Link> : null}
       </div>
     );
   }
@@ -54,21 +56,30 @@ export default function MealsBrowser({ meals }) {
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
           />
-          <Link href="/meals/share" className={classes.shareButton}>
-            Share Your Favourite Recipe
-          </Link>
+          {currentUser ? (
+            <Link href="/meals/share" className={classes.shareButton}>
+              Share Your Favourite Recipe
+            </Link>
+          ) : null}
+          {isGuest ? (
+            <span className={classes.guestNotice}>Guest browse mode</span>
+          ) : null}
         </div>
       </div>
 
       {filteredMeals.length === 0 ? (
         <div className={classes.noResults}>
           <p>No meals match your search.</p>
-          <button type="button" onClick={() => setSearchTerm("") }>
+          <button type="button" onClick={() => setSearchTerm("")}>
             Clear search
           </button>
         </div>
       ) : (
-        <MealsGrid meals={filteredMeals} />
+        <MealsGrid
+          meals={filteredMeals}
+          currentUser={currentUser}
+          isGuest={isGuest}
+        />
       )}
     </section>
   );

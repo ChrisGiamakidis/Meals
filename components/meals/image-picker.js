@@ -1,11 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
 import classes from "./image-picker.module.css";
-import Image from "next/image";
 
-export default function ImagePicker({ label, name }) {
-  const [pickedImage, setPickedImage] = useState();
+export default function ImagePicker({
+  label,
+  name,
+  required = true,
+  initialImage = null,
+}) {
+  const [pickedImage, setPickedImage] = useState(initialImage);
   const inputRef = useRef();
 
   function handlePickClick() {
@@ -47,7 +52,7 @@ export default function ImagePicker({ label, name }) {
           name={name}
           accept="image/png, image/jpeg"
           onChange={handleImageChange}
-          required
+          required={required}
         />
         <button
           type="button"

@@ -24,7 +24,10 @@ function readHiddenMealIds() {
 }
 
 function writeHiddenMealIds(hiddenMealIds) {
-  window.localStorage.setItem(DELETED_MEALS_STORAGE_KEY, JSON.stringify(hiddenMealIds));
+  window.localStorage.setItem(
+    DELETED_MEALS_STORAGE_KEY,
+    JSON.stringify(hiddenMealIds),
+  );
 }
 
 export function DeletedMealsProvider({ children }) {
