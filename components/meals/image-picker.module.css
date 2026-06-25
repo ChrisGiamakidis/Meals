@@ -1,7 +1,8 @@
 .controls {
   display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -11,11 +12,12 @@
 
 .picker .button {
   border: 0;
-  padding: 0.5rem 1.5rem;
+  padding: 0.75rem 1rem;
   background: #a4abb9;
-  border-radius: 2px;
+  border-radius: 4px;
   cursor: pointer;
   font: inherit;
+  width: 100%;
 }
 
 .picker .button:hover,
@@ -24,7 +26,8 @@
 }
 
 .preview {
-  width: 10rem;
+  width: 100%;
+  max-width: 10rem;
   height: 10rem;
   border: 2px solid #a4abb9;
   display: flex;
@@ -33,6 +36,19 @@
   text-align: center;
   color: #a4abb9;
   position: relative;
+}
+
+@media (min-width: 768px) {
+  .controls {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .picker .button {
+    width: auto;
+    border-radius: 2px;
+  }
 }
 
 .preview p {

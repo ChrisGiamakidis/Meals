@@ -9,10 +9,16 @@
   display: grid;
   grid-template-columns: 1.8fr 1fr;
   gap: 1.5rem;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 1.5rem;
   background: linear-gradient(135deg, rgba(63, 37, 28, 0.98), rgba(24, 20, 16, 0.98));
   box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 768px) {
+  .heroCard {
+    padding: 2rem;
+  }
 }
 
 .kicker,
@@ -45,8 +51,15 @@
 
 .statsGrid {
   display: grid;
-  gap: 1rem;
-  align-content: end;
+  gap: 0.75rem;
+  align-content: start;
+}
+
+@media (min-width: 768px) {
+  .statsGrid {
+    gap: 1rem;
+    align-content: end;
+  }
 }
 
 .statsGrid div {
@@ -90,8 +103,8 @@
 .feedCard {
   width: 100%;
   max-width: 48rem;
-  margin: 2rem auto;
-  padding: 2rem;
+  margin: 1.5rem auto;
+  padding: 1.5rem;
   border-radius: 1.25rem;
   background: linear-gradient(
     135deg,
@@ -99,6 +112,14 @@
     rgba(24, 20, 16, 0.98)
   );
   box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 768px) {
+  .panel,
+  .postComposer,
+  .feedCard {
+    padding: 2rem;
+  }
 }
 
 .panel h3,

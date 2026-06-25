@@ -1,9 +1,28 @@
 .header {
   width: 90%;
   max-width: 75rem;
-  margin: 3rem auto 2rem;
+  margin: 2rem auto 1.5rem;
   color: #ddd6cb;
   text-align: center;
+}
+
+@media (min-width: 768px) {
+  .header {
+    margin: 3rem auto 2rem;
+  }
+}
+
+.backLink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.header p {
+  font-size: 1.1rem;
 }
 
 .backLink {
@@ -16,8 +35,14 @@
 .backLinkLink {
   color: #ff9b05;
   text-decoration: none;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: bold;
+}
+
+@media (min-width: 768px) {
+  .backLinkLink {
+    font-size: 1.25rem;
+  }
 }
 
 .backLinkLink:hover,

@@ -1,12 +1,25 @@
 .meals {
   width: 90%;
-  max-width: 90rem;
+  max-width: 75rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-  grid-gap: 5rem;
+  grid-template-columns: 1fr;
+  grid-gap: 2rem;
   margin: 2rem auto;
   list-style: none;
   padding: 0;
+}
+
+@media (min-width: 600px) {
+  .meals {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .meals {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2.5rem;
+  }
 }
 
 .emptyState {

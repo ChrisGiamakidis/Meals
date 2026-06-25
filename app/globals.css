@@ -6,22 +6,25 @@
 
 html {
   font-family: 'Quicksand', sans-serif;
+  font-size: clamp(16px, 2vw, 18px);
 }
 
 body {
   margin: 0;
   background: radial-gradient(#282c34, #282c34);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .not-found,
 .error {
-  margin-top: 5rem;
+  margin-top: 3rem;
   text-align: center;
+  padding: 0 1rem;
 }
 
 .not-found h1,
 .error h1 {
-  font-size: 5rem;
+  font-size: clamp(3rem, 8vw, 5rem);
   margin: 0px;
   font-weight: 900;
   color: #262626;
@@ -36,7 +39,7 @@ body {
 
 .not-found p,
 .error p {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 500;
   color: #ddd8d8;
 }

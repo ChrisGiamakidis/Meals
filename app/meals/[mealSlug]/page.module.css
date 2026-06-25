@@ -1,8 +1,8 @@
 .header {
   display: flex;
-  flex-wrap: wrap;
-  padding: 2rem 1rem;
-  gap: 3rem;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1.5rem;
   margin: auto;
   max-width: 80rem;
 }
@@ -16,14 +16,10 @@
   flex-wrap: wrap;
 }
 
-.deleteForm {
-  margin-left: auto;
-}
-
 .backLink a {
   color: #ff9b05;
   text-decoration: none;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: bold;
 }
 
@@ -38,15 +34,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 1.25rem;
+  padding: 0.6rem 1rem;
   border-radius: 0.5rem;
   background: linear-gradient(90deg, #f9572a, #ff9b05);
   color: #ffffff;
   text-decoration: none;
   font-weight: bold;
   white-space: nowrap;
-  margin-left: auto;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  font-size: 0.95rem;
 }
 
 .backLink .editLink:hover,
@@ -56,59 +51,38 @@
   box-shadow: 0 0 12px rgba(242, 100, 18, 0.8);
 }
 
-.deleteForm {
-  margin-left: auto;
-}
-
-.deleteButton {
-  background: linear-gradient(90deg, #f9572a, #ff8a05);
-  border: none;
-  color: #ffffff;
-  padding: 0.5rem 1.5rem;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
-}
-
-.deleteButton:hover,
-.deleteButton:active {
-  background: linear-gradient(90deg, #fd4715, #f9b241);
-}
-
 .image {
   position: relative;
-  width: 30rem;
-  height: 20rem;
+  width: 100%;
+  max-width: 100%;
+  height: 15rem;
 }
 
 .header img {
   object-fit: cover;
   border-radius: 8px;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
-  animation: fade-slide-in-from-left 1s ease-out forwards;
 }
 
 .headerText {
-  padding: 0.5rem 1rem 0 1rem;
+  padding: 0.5rem 0 0 0;
   color: #ddd6cb;
-  max-width: 40rem;
-  animation: fade-slide-in-from-right 1s ease-out forwards;
+  animation: fade-slide-in-from-bottom 0.8s ease-out forwards;
 }
 
 .headerText h1 {
   margin: 0;
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
   text-transform: uppercase;
   font-family: 'Montserrat', sans-serif;
   text-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
 }
 
 .creator {
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   color: #cfa69b;
   font-style: italic;
+  margin: 0.5rem 0;
 }
 
 .creator a {
@@ -128,18 +102,18 @@
 }
 
 .summary {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .instructions {
-  font-size: 1.25rem;
-  line-height: 1.5;
+  font-size: 1.1rem;
+  line-height: 1.6;
   background-color: #6e6464;
   color: #13120f;
   border-radius: 8px;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
-  padding: 1.3rem;
-  max-width: 60rem;
+  padding: 1.2rem;
+  max-width: 100%;
   margin: 2rem auto;
   animation: fade-slide-in-from-bottom 1s ease-out forwards;
 }
@@ -152,25 +126,53 @@
   animation: flash 1s ease-in-out infinite alternate;
 }
 
-@keyframes fade-slide-in-from-left {
-  0% {
-    opacity: 0;
-    transform: translateX(-1rem);
+@media (min-width: 768px) {
+  .header {
+    position: relative;
+    flex-direction: row;
+    padding: 5rem 1rem 2rem;
+    gap: 3rem;
   }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 
-@keyframes fade-slide-in-from-right {
-  0% {
-    opacity: 0;
-    transform: translateX(1rem);
+  .backLink {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: auto;
+    padding: 0;
+    z-index: 2;
   }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
+
+  .image {
+    width: 30rem;
+    height: 20rem;
+  }
+
+  .headerText {
+    padding: 0.5rem 1rem 0 1rem;
+    max-width: 40rem;
+  }
+
+  .headerText h1 {
+    font-size: 3.5rem;
+  }
+
+  .creator {
+    font-size: 1.5rem;
+  }
+
+  .backLink a,
+  .backLink .editLink {
+    font-size: 1.25rem;
+  }
+
+  .backLink .editLink {
+    padding: 0.75rem 1.25rem;
+  }
+
+  .instructions {
+    font-size: 1.25rem;
+    max-width: 60rem;
   }
 }
 
