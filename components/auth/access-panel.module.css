@@ -33,8 +33,21 @@
 
 .authGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   gap: 1rem;
+}
+
+@media (max-width: 40rem) {
+  .authGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.demoList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .panel,
@@ -102,7 +115,7 @@
 
 .demoList {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
   gap: 0.75rem;
   margin-bottom: 0.75rem;
 }

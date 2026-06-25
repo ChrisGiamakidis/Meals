@@ -2,7 +2,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 1rem;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background:#282c34;
 }
 
 @media (min-width: 768px) {
@@ -17,7 +21,6 @@
   padding: 0;
   display: flex;
   gap: 1.5rem;
-  /* font-family: 'Montserrat', sans-serif; */
   font-size: 1.25rem;
 }
 
@@ -25,19 +28,110 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
   text-decoration: none;
   color: #ddd6cb;
   font-weight: bold;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 0.15rem;
   text-transform: uppercase;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .logo img {
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
   object-fit: contain;
   filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.5));
+}
+
+.menuButton {
+  display: block;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 10;
+}
+
+.menuIcon,
+.menuIcon::before,
+.menuIcon::after {
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  background: #ddd6cb;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.menuIcon::before,
+.menuIcon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.menuIcon::before {
+  top: -6px;
+}
+
+.menuIcon::after {
+  top: 6px;
+}
+
+.menuButton[aria-expanded="true"] .menuIcon {
+  background: transparent;
+}
+
+.menuButton[aria-expanded="true"] .menuIcon::before {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menuButton[aria-expanded="true"] .menuIcon::after {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+@media (min-width: 768px) {
+  .logo {
+    gap: 2rem;
+    font-size: 1.5rem;
+  }
+
+  .logo img {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .menuButton {
+    display: none;
+  }
+
+  .nav {
+    display: block !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(40, 44, 52, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav.navOpen {
+    display: block;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
 }

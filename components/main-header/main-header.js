@@ -1,11 +1,16 @@
+"use client";
+
 import logoImg from "@/assets/logo.png";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import MainHeaderBackground from "./main-header-background";
 import classes from "./main-header.module.css";
 import NavLink from "./nav-link";
 
 export default function MainHeader() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <>
       <MainHeaderBackground />
@@ -15,12 +20,21 @@ export default function MainHeader() {
           Next Level Food
         </Link>
 
-        <nav className={classes.nav}>
+        <button
+          className={classes.menuButton}
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle navigation menu"
+          aria-expanded={isMobileMenuOpen}
+        >
+          <span className={classes.menuIcon}></span>
+        </button>
+
+        <nav className={`${classes.nav} ${isMobileMenuOpen ? classes.navOpen : ""}`}>
           <ul>
-            <li>
+            <li onClick={() => setIsMobileMenuOpen(false)}>
               <NavLink href="/meals">Browse Meals</NavLink>
             </li>
-            <li>
+            <li onClick={() => setIsMobileMenuOpen(false)}>
               <NavLink href="/community">Foodies Community</NavLink>
             </li>
           </ul>
