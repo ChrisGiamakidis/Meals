@@ -128,17 +128,19 @@
 
 @media (min-width: 768px) {
   .header {
+    position: relative;
     flex-direction: row;
-    padding: 2rem 1rem;
+    padding: 5rem 1rem 2rem;
     gap: 3rem;
   }
 
   .backLink {
     position: absolute;
-    top: 2rem;
-    left: 2rem;
+    top: 1rem;
+    left: 1rem;
     width: auto;
-    padding: 0 2rem;
+    padding: 0;
+    z-index: 2;
   }
 
   .image {

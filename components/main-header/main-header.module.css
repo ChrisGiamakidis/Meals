@@ -6,7 +6,15 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background:#282c34;
+  transition: transform 0.3s ease;
+}
+
+.visible {
+  transform: translateY(0);
+}
+
+.hidden {
+  transform: translateY(-100%);
 }
 
 @media (min-width: 768px) {

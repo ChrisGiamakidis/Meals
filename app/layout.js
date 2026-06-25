@@ -1,6 +1,7 @@
 import MainHeader from "@/components/main-header/main-header";
 import { DeletedMealsProvider } from "@/store/deleted-meals-context";
 import "./globals.css";
+import Footer from "@/components/footer/footer";
 
 export const metadata = {
   title: "NextLevel Food",
@@ -19,6 +20,7 @@ export default async function RootLayout({ children }) {
         <DeletedMealsProvider>
           <MainHeader />
           {children}
+          <Footer />
         </DeletedMealsProvider>
       </body>
     </html>

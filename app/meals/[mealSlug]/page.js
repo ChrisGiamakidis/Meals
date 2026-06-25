@@ -28,35 +28,14 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function MealDetailsPage({ params }) {
-  const { meal, accessData } = await getMealData({ params });
+  const { meal } = await getMealData({ params });
   meal.instructions = meal.instructions.trim().replaceAll("\n", "<br />");
-  const isSeedMeal = (() => {
-    try {
-      return new URL(meal.image).pathname.startsWith("/seed/");
-    } catch {
-      return true;
-    }
-  })();
-  const canEditMeal =
-    Boolean(accessData.currentUser?.email && meal.creator_email) &&
-    accessData.currentUser.email.toLowerCase() ===
-      meal.creator_email.toLowerCase() &&
-    !accessData.isGuest &&
-    !isSeedMeal;
 
   return (
     <>
       <header className={classes.header}>
         <div className={classes.backLink}>
           <Link href="/meals">&larr; Back to Meals</Link>
-          {canEditMeal ? (
-            <Link
-              href={`/meals/${meal.slug}/edit`}
-              className={classes.editLink}
-            >
-              Edit Meal
-            </Link>
-          ) : null}
         </div>
         <div className={classes.image}>
           <Image
