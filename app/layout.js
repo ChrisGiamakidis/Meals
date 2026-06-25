@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import MainHeader from "@/components/main-header/main-header";
 import { DeletedMealsProvider } from "@/store/deleted-meals-context";
 import "./globals.css";
@@ -15,6 +16,7 @@ export default async function RootLayout({ children }) {
           <MainHeader />
           {children}
         </DeletedMealsProvider>
+        <Analytics />
       </body>
     </html>
   );
