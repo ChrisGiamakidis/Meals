@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import MainHeader from "@/components/main-header/main-header";
 import { DeletedMealsProvider } from "@/store/deleted-meals-context";
 import { SpeedInsights } from "@vercel/speed-insights/next";
