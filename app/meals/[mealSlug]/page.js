@@ -27,9 +27,24 @@ export async function generateMetadata({ params }) {
   };
 }
 
+function formatInstructions(raw) {
+  return raw
+    .trim()
+    .split("\n")
+    .map((line) => {
+      const trimmed = line.trim();
+      if (!trimmed) return "";
+      if (/^\d+\./.test(trimmed)) {
+        return `<p class="step-title"><strong>${trimmed}</strong></p>`;
+      }
+      return `<p class="step-body">${trimmed}</p>`;
+    })
+    .join("");
+}
+
 export default async function MealDetailsPage({ params }) {
   const { meal } = await getMealData({ params });
-  meal.instructions = meal.instructions.trim().replaceAll("\n", "<br />");
+  const formattedInstructions = formatInstructions(meal.instructions);
 
   return (
     <>
@@ -55,12 +70,10 @@ export default async function MealDetailsPage({ params }) {
         </div>
       </header>
       <main>
-        <p
+        <div
           className={classes.instructions}
-          dangerouslySetInnerHTML={{
-            __html: meal.instructions,
-          }}
-        ></p>
+          dangerouslySetInnerHTML={{ __html: formattedInstructions }}
+        />
       </main>
     </>
   );

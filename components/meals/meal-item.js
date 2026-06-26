@@ -19,7 +19,6 @@ export default function MealItem({
   creator,
   creator_email,
   currentUser,
-  isGuest,
 }) {
   const { hideMeal } = useContext(DeletedMealsContext);
   const router = useRouter();
@@ -36,11 +35,10 @@ export default function MealItem({
   const isOwner =
     Boolean(currentUser?.email && creator_email) &&
     currentUser.email.toLowerCase() === creator_email.toLowerCase();
-  const canEditMeal =
-    Boolean(currentUser) && !isSeedMeal && isOwner && !isGuest;
+  const canEditMeal = Boolean(currentUser) && !isSeedMeal && isOwner;
   const canHideSeedMeal = Boolean(currentUser) && isSeedMeal;
   const canDeleteMeal = Boolean(currentUser) && !isSeedMeal && isOwner;
-  const canUseMealAction = !isGuest && (canHideSeedMeal || canDeleteMeal);
+  const canUseMealAction = canHideSeedMeal || canDeleteMeal;
 
   function handleOpenModal() {
     setIsModalOpen(true);

@@ -1,24 +1,13 @@
 .accessShell {
   width: 90%;
-  max-width: 75rem;
+  max-width: 60rem;
   margin: 0 auto 5rem;
   color: #ddd6cb;
 }
 
 .intro {
   max-width: 52rem;
-  margin-bottom: 1.5rem;
-}
-
-.intro h2 {
-  margin: 0 0 0.75rem;
-  font-family: 'Montserrat', sans-serif;
-  font-size: clamp(2rem, 4vw, 3.25rem);
-  line-height: 1.1;
-}
-
-.intro p {
-  color: #cdbfb2;
+  margin-bottom: 2rem;
 }
 
 .kicker,
@@ -26,87 +15,119 @@
   margin: 0 0 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: #ffb36b;
   font-weight: 700;
 }
 
 .authGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-@media (max-width: 40rem) {
+@media (max-width: 56rem) {
   .authGrid {
     grid-template-columns: 1fr;
   }
 }
 
-.demoList {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
-}
-
 .panel,
 .demoPanel {
-  padding: 1.25rem;
-  border-radius: 1rem;
+  padding: 1.5rem;
+  border-radius: 1.25rem;
   background: linear-gradient(135deg, rgba(47, 31, 24, 0.98), rgba(24, 20, 16, 0.98));
-  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .panel h3 {
-  margin: 0 0 1rem;
+  margin: 0 0 1.25rem;
   font-family: 'Montserrat', sans-serif;
+  font-size: 1.25rem;
+  color: #fff;
+  width: 100%;
 }
 
 .panel input {
+  display: block;
   width: 100%;
-  margin-bottom: 0.85rem;
-  padding: 0.85rem 1rem;
-  border: 1px solid rgba(221, 214, 203, 0.15);
+  margin-bottom: 0.75rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(221, 214, 203, 0.12);
   border-radius: 0.75rem;
-  background: rgba(18, 15, 12, 0.95);
+  background: rgba(18, 15, 12, 0.9);
   color: #fff;
   font: inherit;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.panel input:focus {
+  outline: none;
+  border-color: rgba(255, 155, 5, 0.4);
 }
 
 .panel input::placeholder {
-  color: #98897d;
-}
-
-.submitButton,
-.secondaryButton {
-  width: 100%;
-  padding: 0.85rem 1rem;
-  border: none;
-  border-radius: 0.75rem;
-  cursor: pointer;
-  font: inherit;
-  font-weight: 700;
+  color: #6b5f56;
 }
 
 .submitButton {
+  display: inline-block;
+  width: auto;
+  padding: 0.85rem 2.5rem;
+  border: none;
+  border-radius: 0.75rem;
   background: linear-gradient(90deg, #f9572a, #ff9b05);
   color: #fff;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.submitButton:hover {
+  opacity: 0.88;
 }
 
 .secondaryButton {
+  display: inline-block;
+  width: auto;
   margin-top: 0.5rem;
+  padding: 0.85rem 2.5rem;
+  border: none;
+  border-radius: 0.75rem;
   background: rgba(255, 255, 255, 0.08);
   color: #fff;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.secondaryButton:hover {
+  background: rgba(255, 255, 255, 0.13);
 }
 
 .muted {
-  color: #cdbfb2;
+  margin: 0 0 1rem;
+  color: #9e8f82;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  width: 100%;
 }
 
 .error {
-  margin: 0 0 0.85rem;
+  margin: 0 0 0.75rem;
   color: #ffb3a8;
+  font-size: 0.88rem;
+  width: 100%;
 }
 
 .demoPanel {
@@ -115,31 +136,48 @@
 
 .demoList {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 0.6rem;
+  margin: 0.75rem 0 1rem;
+  width: 100%;
 }
 
 .demoItem {
-  display: grid;
-  gap: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
   padding: 0.75rem;
   border-radius: 0.75rem;
   background: rgba(255, 255, 255, 0.05);
 }
 
-.demoItem span {
-  color: #b8a99b;
+.demoItem strong {
   font-size: 0.9rem;
+  color: #ddd6cb;
 }
 
-@media (max-width: 60rem) {
-  .authGrid,
-  .demoList {
-    grid-template-columns: 1fr;
-  }
+.demoItem span {
+  color: #9e8f82;
+  font-size: 0.82rem;
+}
 
+@media (max-width: 56rem) {
   .accessShell {
     width: 92%;
+  }
+
+  .panel input {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  .submitButton,
+  .secondaryButton {
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+  }
+
+  .panel {
+    padding: 1.25rem;
   }
 }

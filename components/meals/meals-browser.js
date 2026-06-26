@@ -60,10 +60,11 @@ export default function MealsBrowser({ meals, accessData }) {
             <Link href="/meals/share" className={classes.shareButton}>
               Share Your Favourite Recipe
             </Link>
-          ) : null}
-          {isGuest ? (
-            <span className={classes.guestNotice}>Guest browse mode</span>
-          ) : null}
+          ) : (
+            <Link href="/auth?redirectTo=/meals" className={classes.loginButton}>
+              Log in / Sign up
+            </Link>
+          )}
         </div>
       </div>
 
@@ -75,11 +76,7 @@ export default function MealsBrowser({ meals, accessData }) {
           </button>
         </div>
       ) : (
-        <MealsGrid
-          meals={filteredMeals}
-          currentUser={currentUser}
-          isGuest={isGuest}
-        />
+        <MealsGrid meals={filteredMeals} currentUser={currentUser} />
       )}
     </section>
   );

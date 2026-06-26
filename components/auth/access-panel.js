@@ -3,7 +3,6 @@
 import { useActionState } from "react";
 
 import {
-  joinAsGuest,
   logInCommunityUser,
   signUpCommunityUser,
 } from "@/lib/community-actions";
@@ -28,8 +27,6 @@ export default function AccessPanel({
     <section className={classes.accessShell}>
       <div className={classes.intro}>
         <p className={classes.kicker}>Member access</p>
-        <h2>{title}</h2>
-        <p>{description}</p>
       </div>
 
       <div className={classes.authGrid}>
@@ -56,19 +53,6 @@ export default function AccessPanel({
             <p className={classes.error}>{loginState.message}</p>
           ) : null}
           <SubmitButton>Log in</SubmitButton>
-        </form>
-
-        <form action={joinAsGuest} className={classes.panel}>
-          <input type="hidden" name="redirectTo" value={redirectTo} />
-          <p className={classes.panelLabel}>Guest mode</p>
-          <h3>Browse only</h3>
-          <p className={classes.muted}>
-            Guests can see meals and community posts, but cannot add, delete, or
-            hide content.
-          </p>
-          <button type="submit" className={classes.secondaryButton}>
-            Join as Guest
-          </button>
         </form>
       </div>
 

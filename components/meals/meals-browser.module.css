@@ -14,7 +14,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-end;
 }
 
@@ -94,21 +94,6 @@
   cursor: pointer;
 }
 
-@media (max-width: 48rem) {
-  .toolbar {
-    justify-content: stretch;
-  }
-
-  .controls {
-    width: 100%;
-    justify-content: stretch;
-  }
-
-  .shareButton {
-    width: 100%;
-  }
-}
-
 .guestNotice {
   display: inline-flex;
   align-items: center;
@@ -119,4 +104,36 @@
   color: #ffcc8a;
   font-weight: 700;
   white-space: nowrap;
+}
+
+.loginButton {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  border: none;
+  background: linear-gradient(90deg, #f9572a, #ff9b05);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.loginButton:hover {
+  opacity: 0.88;
+}
+
+@media (max-width: 48rem) {
+  .controls {
+    gap: 0.75rem;
+  }
+
+  .loginButton,
+  .shareButton {
+    font-size: 0.85rem;
+    padding: 0.6rem 1rem;
+  }
 }

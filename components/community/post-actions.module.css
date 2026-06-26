@@ -1,3 +1,4 @@
+/* Text button layout */
 .postActions {
   display: flex;
   justify-content: flex-end;
@@ -8,7 +9,7 @@
 }
 
 .postActions a,
-.deleteForm button {
+.postActionButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -28,22 +29,70 @@
   background: linear-gradient(90deg, #f9572a, #ff9b05);
 }
 
-.postActions a:hover,
-.postActions a:active {
-  background: linear-gradient(90deg, #fd4715, #f9b241);
-  box-shadow: 0 0 12px rgba(242, 100, 18, 0.8);
+.postActions a:hover {
+  opacity: 0.88;
+}
+
+.postActionButton {
+  background: linear-gradient(90deg, #5c1e1e, #9e2f2f);
+}
+
+.postActionButton:hover {
+  background: linear-gradient(90deg, #7a2424, #bd3b3b);
 }
 
 .deleteForm {
   margin: 0;
 }
 
-.deleteForm button {
-  background: linear-gradient(90deg, #5c1e1e, #9e2f2f);
+/* Icon-only layout (feed cards) */
+.postActionsIcon {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
 }
 
-.deleteForm button:hover,
-.deleteForm button:active {
-  background: linear-gradient(90deg, #7a2424, #bd3b3b);
-  box-shadow: 0 0 12px rgba(158, 47, 47, 0.65);
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  color: #cdbfb2;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.07);
+  transition: background 0.15s, color 0.15s;
+}
+
+.iconButton:hover {
+  background: rgba(249, 87, 42, 0.18);
+  color: #ff9b05;
+}
+
+.iconButtonDelete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  color: #cdbfb2;
+  background: rgba(255, 255, 255, 0.07);
+  transition: background 0.15s, color 0.15s;
+}
+
+.iconButtonDelete:hover {
+  background: rgba(158, 47, 47, 0.25);
+  color: #ff8a8a;
+}
+
+.iconButtonDelete:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }

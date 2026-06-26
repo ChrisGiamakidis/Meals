@@ -1,8 +1,8 @@
-import MainHeader from "@/components/main-header/main-header";
+import Footer from "@/components/footer/footer";
+import MainHeaderWrapper from "@/components/main-header/main-header-wrapper";
 import { DeletedMealsProvider } from "@/store/deleted-meals-context";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
-import Footer from "@/components/footer/footer";
 
 export const metadata = {
   title: "NextLevel Food",
@@ -19,7 +19,7 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body>
         <DeletedMealsProvider>
-          <MainHeader />
+          <MainHeaderWrapper />
           {children}
           <Footer />
         </DeletedMealsProvider>
