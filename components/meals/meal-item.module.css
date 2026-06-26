@@ -35,7 +35,6 @@
 .image {
   position: relative;
   height: 12rem;
-  overflow: hidden;
 }
 
 @media (min-width: 768px) {
