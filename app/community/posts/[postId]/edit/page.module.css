@@ -1,0 +1,149 @@
+.header {
+  width: 90%;
+  max-width: 75rem;
+  margin: 2rem auto 1rem;
+  color: #ddd6cb;
+}
+
+.backLink {
+  margin-bottom: 0.75rem;
+}
+
+.backLinkLink {
+  color: #ff9b05;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.backLinkLink:hover,
+.backLinkLink:active {
+  color: #f9b241;
+}
+
+.header h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  margin: 0;
+}
+
+.highlight {
+  background: linear-gradient(90deg, #f9572a, #ff8a05);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.main {
+  width: 90%;
+  max-width: 75rem;
+  margin: 1.5rem auto 4rem;
+}
+
+/* ── Form (postComposer from community-hub.module.css) ── */
+.postComposer {
+  max-width: 60rem;
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, rgba(47, 31, 24, 0.98), rgba(24, 20, 16, 0.98));
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.25);
+}
+
+.composerHeading {
+  margin: 0 0 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  color: #ffb36b;
+  font-weight: 700;
+}
+
+/* Two-column: title + cuisine side by side */
+.composerRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.formGroup label {
+  color: #ffb36b;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.postComposer input,
+.postComposer textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(221, 214, 203, 0.12);
+  border-radius: 0.75rem;
+  background: rgba(18, 15, 12, 0.9);
+  color: #fff;
+  font: inherit;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.postComposer input:focus,
+.postComposer textarea:focus {
+  outline: none;
+  border-color: rgba(255, 155, 5, 0.4);
+}
+
+.postComposer input::placeholder,
+.postComposer textarea::placeholder {
+  color: #6b5f56;
+}
+
+.postComposer textarea {
+  resize: vertical;
+  min-height: 7rem;
+  margin-bottom: 0.75rem;
+}
+
+.submitButton {
+  display: block;
+  margin-left: auto;
+  padding: 0.75rem 2rem;
+  background: linear-gradient(90deg, #f9572a, #ff9b05);
+  color: #fff;
+  border: none;
+  border-radius: 2rem;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.submitButton:hover {
+  opacity: 0.88;
+}
+
+.submitButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.error {
+  margin: 0.5rem 0 0;
+  color: #ffb3a8;
+  font-size: 0.88rem;
+}
+
+@media (max-width: 600px) {
+  .composerRow {
+    grid-template-columns: 1fr;
+  }
+}

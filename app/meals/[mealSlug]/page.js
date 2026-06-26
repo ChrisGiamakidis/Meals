@@ -1,9 +1,10 @@
 import { getCommunityAccessData } from "@/lib/community";
 import { getMeal } from "@/lib/meals";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
 import classes from "./page.module.css";
+import MealHero from "@/components/meals/meal-hero";
 
 async function getMealData({ params }) {
   const { mealSlug } = await params;
@@ -11,20 +12,13 @@ async function getMealData({ params }) {
     getMeal(mealSlug),
     getCommunityAccessData(),
   ]);
-
-  if (!meal) {
-    notFound();
-  }
-
+  if (!meal) notFound();
   return { meal, accessData };
 }
 
 export async function generateMetadata({ params }) {
   const { meal } = await getMealData({ params });
-  return {
-    title: meal.title,
-    description: meal.summary,
-  };
+  return { title: meal.title, description: meal.summary };
 }
 
 function formatInstructions(raw) {
@@ -48,27 +42,18 @@ export default async function MealDetailsPage({ params }) {
 
   return (
     <>
-      <header className={classes.header}>
-        <div className={classes.backLink}>
-          <Link href="/meals">&larr; Back to Meals</Link>
-        </div>
-        <div className={classes.image}>
-          <Image
-            src={meal.image}
-            alt={meal.title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            loading="eager"
-          />
-        </div>
-        <div className={classes.headerText}>
-          <h1>{meal.title}</h1>
-          <p className={classes.creator}>
-            By <a href={`mailto:${meal.creator_email}`}>{meal.creator}</a>
-          </p>
-          <p className={classes.summary}>{meal.summary}</p>
-        </div>
-      </header>
+      <div className={classes.backLink}>
+        <Link href="/meals">&larr; Back to Meals</Link>
+      </div>
+
+      <MealHero
+        title={meal.title}
+        creator={meal.creator}
+        creatorEmail={meal.creator_email}
+        summary={meal.summary}
+        imageSrc={meal.image}
+      />
+
       <main>
         <div
           className={classes.instructions}

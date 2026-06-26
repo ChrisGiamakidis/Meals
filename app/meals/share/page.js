@@ -1,3 +1,4 @@
+import Link from "next/link";
 import AccessPanel from "@/components/auth/access-panel";
 import ShareMealForm from "@/components/meals/share-meal-form";
 import {
@@ -18,6 +19,11 @@ export default async function ShareMealPage() {
   return (
     <>
       <header className={classes.header}>
+        <div className={classes.backLink}>
+          <Link href="/meals" className={classes.backLinkLink}>
+            &larr; Back to Meals
+          </Link>
+        </div>
         <h1>
           Share your <span className={classes.highlight}>favourite meal</span>
         </h1>

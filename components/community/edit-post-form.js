@@ -22,7 +22,6 @@ export default function EditPostForm({
   const canPost = Boolean(currentUser);
   const resolvedPendingLabel =
     pendingLabel ?? (post ? "Applying changes..." : "Publishing...");
-
   const isEditPage = Boolean(post);
 
   return (
@@ -34,25 +33,27 @@ export default function EditPostForm({
 
       {isEditPage ? (
         <>
-          <div className={classes.formGroup}>
-            <label htmlFor="title">Title</label>
-            <input
-              id="title"
-              name="title"
-              placeholder="Enter a title"
-              defaultValue={post?.title ?? ""}
-              disabled={!canPost}
-            />
-          </div>
-          <div className={classes.formGroup}>
-            <label htmlFor="cuisine">Cuisine / Topic</label>
-            <input
-              id="cuisine"
-              name="cuisine"
-              placeholder="e.g. Italian, Dessert, Baking"
-              defaultValue={post?.cuisine ?? ""}
-              disabled={!canPost}
-            />
+          <div className={classes.composerRow}>
+            <div className={classes.formGroup}>
+              <label htmlFor="title">Title</label>
+              <input
+                id="title"
+                name="title"
+                placeholder="Enter a title"
+                defaultValue={post?.title ?? ""}
+                disabled={!canPost}
+              />
+            </div>
+            <div className={classes.formGroup}>
+              <label htmlFor="cuisine">Cuisine / Topic</label>
+              <input
+                id="cuisine"
+                name="cuisine"
+                placeholder="e.g. Italian, Dessert, Baking"
+                defaultValue={post?.cuisine ?? ""}
+                disabled={!canPost}
+              />
+            </div>
           </div>
           <div className={classes.formGroup}>
             <label htmlFor="body">Content</label>
@@ -67,7 +68,6 @@ export default function EditPostForm({
           </div>
         </>
       ) : (
-        // Composer: Title + Cuisine side by side, then textarea
         <>
           <div className={classes.composerRow}>
             <input

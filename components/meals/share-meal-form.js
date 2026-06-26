@@ -52,7 +52,7 @@ export default function ShareMealForm({
         <textarea
           id="instructions"
           name="instructions"
-          rows="10"
+          rows="6"
           defaultValue={meal?.instructions ?? ""}
           required
         />
