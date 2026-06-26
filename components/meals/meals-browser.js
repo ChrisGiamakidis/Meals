@@ -1,18 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 
 import { DeletedMealsContext } from "@/store/deleted-meals-context";
 import MealSearchBar from "./meal-search-bar";
 import classes from "./meals-browser.module.css";
 import MealsGrid from "./meals-grid";
 
-export default function MealsBrowser({ meals, accessData }) {
+export default function MealsBrowser({
+  meals,
+  accessData,
+  totalPages,
+  currentPage,
+}) {
   const { hiddenMealIds, isLoaded } = useContext(DeletedMealsContext);
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedTerm, setDebouncedTerm] = useState("");
   const currentUser = accessData?.currentUser ?? null;
-  const isGuest = accessData?.isGuest ?? false;
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedTerm(searchTerm), 300);
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   const visibleMeals = useMemo(
     () => meals.filter((meal) => !hiddenMealIds.includes(String(meal.id))),
@@ -20,20 +30,15 @@ export default function MealsBrowser({ meals, accessData }) {
   );
 
   const filteredMeals = useMemo(() => {
-    const normalizedSearchTerm = searchTerm.trim().toLowerCase();
-
-    if (!normalizedSearchTerm) {
-      return visibleMeals;
-    }
-
-    return visibleMeals.filter((meal) => {
-      const searchableText = [meal.title, meal.summary, meal.creator]
+    const normalized = debouncedTerm.trim().toLowerCase();
+    if (!normalized) return visibleMeals;
+    return visibleMeals.filter((meal) =>
+      [meal.title, meal.summary, meal.creator]
         .join(" ")
-        .toLowerCase();
-
-      return searchableText.includes(normalizedSearchTerm);
-    });
-  }, [searchTerm, visibleMeals]);
+        .toLowerCase()
+        .includes(normalized),
+    );
+  }, [debouncedTerm, visibleMeals]);
 
   if (!isLoaded) {
     return <div className={classes.emptyState}>Loading meals...</div>;
@@ -61,7 +66,10 @@ export default function MealsBrowser({ meals, accessData }) {
               Share Your Favourite Recipe
             </Link>
           ) : (
-            <Link href="/auth?redirectTo=/meals" className={classes.loginButton}>
+            <Link
+              href="/auth?redirectTo=/meals"
+              className={classes.loginButton}
+            >
               Log in / Sign up
             </Link>
           )}
@@ -77,6 +85,30 @@ export default function MealsBrowser({ meals, accessData }) {
         </div>
       ) : (
         <MealsGrid meals={filteredMeals} currentUser={currentUser} />
+      )}
+
+      {totalPages > 1 && (
+        <div className={classes.pagination}>
+          {currentPage > 1 && (
+            <Link
+              href={`/meals?page=${currentPage - 1}`}
+              className={classes.pageButton}
+            >
+              ← Previous
+            </Link>
+          )}
+          <span className={classes.pageInfo}>
+            {currentPage} / {totalPages}
+          </span>
+          {currentPage < totalPages && (
+            <Link
+              href={`/meals?page=${currentPage + 1}`}
+              className={classes.pageButton}
+            >
+              Next →
+            </Link>
+          )}
+        </div>
       )}
     </section>
   );
