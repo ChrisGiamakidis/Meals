@@ -21,7 +21,7 @@
 
 .modal h2 {
   margin: 0 0 0.75rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
 }
 
 .modal p {

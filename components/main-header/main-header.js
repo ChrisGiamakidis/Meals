@@ -32,7 +32,13 @@ export default function MainHeader({ isLoggedIn }) {
       className={`${classes.header} ${visible ? classes.visible : classes.hidden}`}
     >
       <Link href="/" className={classes.logo}>
-        <Image src={logoImg} alt="Next Level Food Logo" priority />
+        <Image
+          src={logoImg}
+          alt="Next Level Food Logo"
+          priority
+          width={80}
+          height={80}
+        />
         Next Level Food
       </Link>
 

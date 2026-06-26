@@ -20,7 +20,7 @@
 
 .heroCard h2 {
   margin: 0.5rem 0 1rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
   font-size: clamp(2rem, 4.5vw, 3.5rem);
   font-weight: 800;
   line-height: 1.1;
@@ -51,7 +51,7 @@
 .statCard strong {
   display: block;
   font-size: 2.25rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
   font-weight: 800;
   color: #fff;
   line-height: 1;
@@ -112,7 +112,7 @@
 
 .panelName {
   margin: 0 0 0.25rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
   font-size: 1.15rem;
   color: #fff;
 }
@@ -395,7 +395,7 @@
 
 .feedTitle {
   margin: 0 0 0.4rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
   font-size: 1.05rem;
   font-weight: 700;
   color: #fff;

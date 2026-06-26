@@ -36,7 +36,7 @@
   text-decoration: none;
   color: #ddd6cb;
   font-weight: bold;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
   letter-spacing: 0.15rem;
   text-transform: uppercase;
   font-size: 1.25rem;

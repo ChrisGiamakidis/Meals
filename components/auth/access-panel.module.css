@@ -46,7 +46,7 @@
 
 .panel h3 {
   margin: 0 0 1.25rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
   font-size: 1.25rem;
   color: #fff;
   width: 100%;
