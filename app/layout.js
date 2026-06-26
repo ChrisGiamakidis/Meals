@@ -1,6 +1,7 @@
 import Footer from "@/components/footer/footer";
 import MainHeaderWrapper from "@/components/main-header/main-header-wrapper";
 import { DeletedMealsProvider } from "@/store/deleted-meals-context";
+import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Montserrat, Quicksand } from "next/font/google";
 import "./globals.css";
@@ -39,6 +40,7 @@ export default async function RootLayout({ children }) {
           <Footer />
         </DeletedMealsProvider>
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
