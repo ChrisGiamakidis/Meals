@@ -47,6 +47,11 @@
   color: #ddd6cb;
   background: linear-gradient(135deg, rgba(60, 39, 33, 0.95), rgba(30, 27, 19, 0.95));
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.35);
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .emptyState p {
