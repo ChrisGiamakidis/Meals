@@ -11,6 +11,13 @@
   background: linear-gradient(90deg, #2c1e19, #25200f);
 }
 
+.clickableArea {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
 .headerText {
   padding: 0.5rem 1rem 0 1rem;
 }
@@ -45,13 +52,6 @@
 
 .meal img {
   object-fit: cover;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
 }
 
 .summary {

@@ -68,33 +68,33 @@ export default function MealItem({
 
   return (
     <article className={classes.meal}>
-      <header>
-        <div className={classes.image}>
-          <Image
-            src={image}
-            alt={title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            quality={75}
-            loading="eager"
-          />
-        </div>
-        <div className={classes.headerText}>
-          <h2>{title}</h2>
-          <p>by {creator}</p>
-        </div>
-      </header>
-      <div className={classes.content}>
+      <Link href={`/meals/${slug}`} className={classes.clickableArea}>
+        <header>
+          <div className={classes.image}>
+            <Image
+              src={image}
+              alt={title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              quality={75}
+              loading="eager"
+            />
+          </div>
+          <div className={classes.headerText}>
+            <h2>{title}</h2>
+            <p>by {creator}</p>
+          </div>
+        </header>
         <p className={classes.summary}>{summary}</p>
-        <div className={classes.actions}>
-          <Link href={`/meals/${slug}`}>View Details</Link>
-          {canEditMeal ? <Link href={`/meals/${slug}/edit`}>Edit</Link> : null}
-          {canUseMealAction ? (
-            <button type="button" onClick={handleOpenModal}>
-              {isSeedMeal ? "Hide" : "Delete"}
-            </button>
-          ) : null}
-        </div>
+      </Link>
+      <div className={classes.actions}>
+        <Link href={`/meals/${slug}`}>View Details</Link>
+        {canEditMeal ? <Link href={`/meals/${slug}/edit`}>Edit</Link> : null}
+        {canUseMealAction ? (
+          <button type="button" onClick={handleOpenModal}>
+            {isSeedMeal ? "Hide" : "Delete"}
+          </button>
+        ) : null}
       </div>
       {canUseMealAction ? (
         <DeleteMealModal

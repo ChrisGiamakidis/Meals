@@ -11,10 +11,19 @@ export default function ImagePicker({
   initialImage = null,
 }) {
   const [pickedImage, setPickedImage] = useState(initialImage);
+  const [isExpanded, setIsExpanded] = useState(false);
   const inputRef = useRef();
 
   function handlePickClick() {
     inputRef.current.click();
+  }
+
+  function handlePreviewClick() {
+    if (pickedImage) {
+      setIsExpanded(true);
+    } else {
+      handlePickClick();
+    }
   }
 
   function handleImageChange(event) {
@@ -38,7 +47,12 @@ export default function ImagePicker({
     <div className={classes.picker}>
       <label htmlFor={name}>{label}</label>
       <div className={classes.controls}>
-        <div className={classes.preview}>
+        <div
+          className={classes.preview}
+          onClick={handlePreviewClick}
+          role="button"
+          tabIndex={0}
+        >
           {!pickedImage && <p>No image picked yet.</p>}
           {pickedImage && (
             <Image src={pickedImage} alt="Picked Image by User" fill />
@@ -59,9 +73,33 @@ export default function ImagePicker({
           className={classes.button}
           onClick={handlePickClick}
         >
-          Pick an Image
+          {pickedImage ? "Change Image" : "Pick Image"}
         </button>
       </div>
+
+      {isExpanded && pickedImage && (
+        <div
+          className={classes.modalOverlay}
+          onClick={() => setIsExpanded(false)}
+        >
+          <button
+            type="button"
+            className={classes.closeButton}
+            onClick={() => setIsExpanded(false)}
+            aria-label="Close"
+          >
+            ×
+          </button>
+          <div className={classes.modalImage}>
+            <Image
+              src={pickedImage}
+              alt="Picked Image by User"
+              fill
+              style={{ objectFit: "contain" }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

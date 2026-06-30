@@ -17,6 +17,7 @@
   border-radius: 4px;
   cursor: pointer;
   font: inherit;
+  color: #1a1a1a;
   width: 100%;
 }
 
@@ -36,6 +37,12 @@
   text-align: center;
   color: #a4abb9;
   position: relative;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.preview:hover {
+  border-color: #ff9b05;
 }
 
 @media (min-width: 768px) {
@@ -58,4 +65,39 @@
 
 .preview img {
   object-fit: cover;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  cursor: pointer;
+}
+
+.modalImage {
+  position: relative;
+  width: 90vw;
+  height: 90vh;
+  max-width: 60rem;
+  max-height: 60rem;
+}
+
+.closeButton {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2.5rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2001;
 }
