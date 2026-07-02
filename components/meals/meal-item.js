@@ -56,7 +56,6 @@ export default function MealItem({
     try {
       if (!isSeedMeal) {
         await deleteMealEntry(id, image);
-        router.refresh();
       }
 
       hideMeal(id);

@@ -1,5 +1,13 @@
 import LoadingSpinner from "@/components/loading-spinner";
 import { getCommunityAccessData } from "@/lib/community";
+import {
+  decodeDeletedMealsSnapshot,
+  getDeletedMealsCookieName,
+  parseDeletedMealIds,
+} from "@/lib/deleted-meals";
+import { getMeals } from "@/lib/meals";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import Meals from "./meals-fetching";
 import classes from "./page.module.css";
@@ -13,6 +21,24 @@ export default async function MealsPage({ searchParams }) {
   const { page = "1" } = await searchParams;
   const currentPage = Math.max(1, parseInt(page, 10) || 1);
   const accessData = await getCommunityAccessData();
+  const cookieStore = await cookies();
+  const accountId = accessData.currentUser?.id ?? "guest";
+  const hiddenMealsSnapshot = cookieStore.get(
+    getDeletedMealsCookieName(accountId),
+  )?.value;
+  const hiddenMealIds = parseDeletedMealIds(
+    decodeDeletedMealsSnapshot(hiddenMealsSnapshot),
+  );
+
+  const meals = await getMeals();
+  const visibleMealCount = meals.filter(
+    (meal) => !hiddenMealIds.includes(String(meal.id)),
+  ).length;
+  const totalPages = Math.max(1, Math.ceil(visibleMealCount / 6));
+
+  if (currentPage > totalPages) {
+    redirect(totalPages > 1 ? `/meals?page=${totalPages}` : "/meals");
+  }
 
   return (
     <>
@@ -29,7 +55,12 @@ export default async function MealsPage({ searchParams }) {
       </header>
       <main className={classes.main}>
         <Suspense fallback={<LoadingSpinner />}>
-          <Meals accessData={accessData} page={currentPage} />
+          <Meals
+            meals={meals}
+            accessData={accessData}
+            page={currentPage}
+            hiddenMealIds={hiddenMealIds}
+          />
         </Suspense>
       </main>
     </>

@@ -1,10 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
+import { useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 
 import classes from "./delete-meal-modal.module.css";
+
+function subscribe() {
+  return () => {};
+}
+
+function getClientSnapshot() {
+  return true;
+}
+
+function getServerSnapshot() {
+  return false;
+}
 
 export default function DeleteMealModal({
   open,
@@ -15,15 +27,18 @@ export default function DeleteMealModal({
   onConfirm,
   onCancel,
 }) {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const isMounted = useSyncExternalStore(
+    subscribe,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
 
   if (!isMounted) {
     return null;
   }
+
+  const actionLabel = action === "hide" ? "Hide" : "Delete";
+  const pendingLabel = action === "hide" ? "Hiding..." : "Deleting...";
 
   return createPortal(
     <AnimatePresence>
@@ -48,7 +63,7 @@ export default function DeleteMealModal({
             transition={{ type: "spring", stiffness: 300, damping: 24 }}
           >
             <h2 id="delete-meal-title">
-              {action === "hide" ? `Hide ${entityLabel}?` : `Delete ${entityLabel}?`}
+              {actionLabel} {entityLabel}?
             </h2>
             <p>
               Are you sure you want to {action} <strong>{title}</strong>?
@@ -58,7 +73,7 @@ export default function DeleteMealModal({
                 No
               </button>
               <button type="button" onClick={onConfirm} disabled={isDeleting}>
-                {isDeleting ? `${action === "hide" ? "Hiding" : "Deleting"}...` : "Yes"}
+                {isDeleting ? pendingLabel : "Yes"}
               </button>
             </div>
           </motion.div>

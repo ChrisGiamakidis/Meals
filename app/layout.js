@@ -1,5 +1,6 @@
 import Footer from "@/components/footer/footer";
 import MainHeaderWrapper from "@/components/main-header/main-header-wrapper";
+import { getCommunityAccessData } from "@/lib/community";
 import { DeletedMealsProvider } from "@/store/deleted-meals-context";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -31,10 +32,12 @@ export const viewport = {
 };
 
 export default async function RootLayout({ children }) {
+  const { currentUser } = await getCommunityAccessData();
+
   return (
     <html lang="en" className={`${quicksand.variable} ${montserrat.variable}`}>
       <body>
-        <DeletedMealsProvider>
+        <DeletedMealsProvider accountId={currentUser?.id ?? "guest"}>
           <MainHeaderWrapper />
           {children}
           <Footer />

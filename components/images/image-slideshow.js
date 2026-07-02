@@ -19,26 +19,17 @@ export default function ImageSlideshow({ meals }) {
     }));
 
   useEffect(() => {
-    if (!isLoaded) {
-      return;
+    if (!isLoaded || visibleImages.length === 0) {
+      return undefined;
     }
 
-    if (visibleImages.length === 0) {
-      setCurrentImageIndex(0);
-      return;
-    }
-
-    setCurrentImageIndex((currentIndex) =>
-      currentIndex >= visibleImages.length ? 0 : currentIndex,
-    );
-
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) =>
-        prevIndex < visibleImages.length - 1 ? prevIndex + 1 : 0,
+    const interval = window.setInterval(() => {
+      setCurrentImageIndex(
+        (currentIndex) => (currentIndex + 1) % visibleImages.length,
       );
     }, 3500);
 
-    return () => clearInterval(interval);
+    return () => window.clearInterval(interval);
   }, [isLoaded, visibleImages.length]);
 
   if (!isLoaded) {

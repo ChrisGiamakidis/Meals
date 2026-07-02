@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useMemo, useState, useTransition } from "react";
 
 import { DeletedMealsContext } from "@/store/deleted-meals-context";
 import MealSearchBar from "./meal-search-bar";
@@ -11,10 +12,13 @@ import MealsGrid from "./meals-grid";
 export default function MealsBrowser({
   meals,
   accessData,
-  totalPages,
+  pageSize,
   currentPage,
 }) {
-  const { hiddenMealIds, isLoaded } = useContext(DeletedMealsContext);
+  const { hiddenMealIds, isLoaded, restoreMeals } =
+    useContext(DeletedMealsContext);
+  const router = useRouter();
+  const [isRestoringMeals, startTransition] = useTransition();
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedTerm, setDebouncedTerm] = useState("");
   const currentUser = accessData?.currentUser ?? null;
@@ -29,22 +33,46 @@ export default function MealsBrowser({
     [hiddenMealIds, meals],
   );
 
+  const totalPages = Math.max(1, Math.ceil(visibleMeals.length / pageSize));
+  const startIndex = (currentPage - 1) * pageSize;
+  const pageMeals = useMemo(
+    () => visibleMeals.slice(startIndex, startIndex + pageSize),
+    [startIndex, visibleMeals, pageSize],
+  );
+  const isPageOutOfRange = currentPage > totalPages;
+
+  useEffect(() => {
+    if (currentPage <= totalPages) {
+      return;
+    }
+
+    router.replace(totalPages > 1 ? `/meals?page=${totalPages}` : "/meals");
+  }, [currentPage, router, totalPages]);
+
   const filteredMeals = useMemo(() => {
     const normalized = debouncedTerm.trim().toLowerCase();
-    if (!normalized) return visibleMeals;
-    return visibleMeals.filter((meal) =>
+    if (!normalized) return pageMeals;
+    return pageMeals.filter((meal) =>
       [meal.title, meal.summary, meal.creator]
         .join(" ")
         .toLowerCase()
         .includes(normalized),
     );
-  }, [debouncedTerm, visibleMeals]);
+  }, [debouncedTerm, pageMeals]);
 
   if (!isLoaded) {
     return <div className={classes.emptyState}>Loading meals...</div>;
   }
 
-  if (visibleMeals.length === 0) {
+  if (isRestoringMeals) {
+    return <div className={classes.emptyState}>Restoring hidden meals...</div>;
+  }
+
+  if (isPageOutOfRange) {
+    return <div className={classes.emptyState}>Updating meals...</div>;
+  }
+
+  if (pageMeals.length === 0) {
     return (
       <div className={classes.emptyState}>
         <p>No meals available yet. Please add yours.</p>
@@ -61,6 +89,21 @@ export default function MealsBrowser({
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
           />
+          {currentUser && hiddenMealIds.length > 0 ? (
+            <button
+              type="button"
+              className={classes.restoreButton}
+              disabled={isRestoringMeals}
+              onClick={() => {
+                startTransition(() => {
+                  restoreMeals();
+                  router.refresh();
+                });
+              }}
+            >
+              Restore Hidden Meals
+            </button>
+          ) : null}
           {currentUser ? (
             <Link href="/meals/share" className={classes.shareButton}>
               Share Your Favourite Recipe
