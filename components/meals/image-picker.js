@@ -12,6 +12,7 @@ export default function ImagePicker({
 }) {
   const [pickedImage, setPickedImage] = useState(initialImage);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [sizeError, setSizeError] = useState(null);
   const inputRef = useRef();
 
   function handlePickClick() {
@@ -33,6 +34,13 @@ export default function ImagePicker({
       setPickedImage(null);
       return;
     }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setSizeError("The image must be smaller than 5MB.");
+      event.target.value = "";
+      return;
+    }
+    setSizeError(null);
 
     const fileReader = new FileReader();
 
@@ -64,7 +72,7 @@ export default function ImagePicker({
           type="file"
           id={name}
           name={name}
-          accept="image/png, image/jpeg"
+          accept="image/jpeg,image/png,image/webp,image/avif"
           onChange={handleImageChange}
           required={required}
         />
@@ -76,6 +84,8 @@ export default function ImagePicker({
           {pickedImage ? "Change Image" : "Pick Image"}
         </button>
       </div>
+
+      {sizeError && <p className={classes.error}>{sizeError}</p>}
 
       {isExpanded && pickedImage && (
         <div

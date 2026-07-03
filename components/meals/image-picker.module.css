@@ -101,3 +101,9 @@
   cursor: pointer;
   z-index: 2001;
 }
+
+.error {
+  color: #ffb3a8;
+  font-size: 0.9rem;
+  margin: 0;
+}
