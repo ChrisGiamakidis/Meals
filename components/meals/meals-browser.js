@@ -8,6 +8,8 @@ import { DeletedMealsContext } from "@/store/deleted-meals-context";
 import MealSearchBar from "./meal-search-bar";
 import classes from "./meals-browser.module.css";
 import MealsGrid from "./meals-grid";
+import MealsPagination from "./meals-pagination";
+import MealsToolbar from "./meals-toolbar";
 
 export default function MealsBrowser({
   meals,
@@ -17,15 +19,21 @@ export default function MealsBrowser({
 }) {
   const { hiddenMealIds, isLoaded, restoreMeals } =
     useContext(DeletedMealsContext);
+
   const router = useRouter();
+
   const [isRestoringMeals, startTransition] = useTransition();
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedTerm, setDebouncedTerm] = useState("");
+
   const currentUser = accessData?.currentUser ?? null;
 
   useEffect(() => {
-    const timer = setTimeout(() => setDebouncedTerm(searchTerm), 300);
-    return () => clearTimeout(timer);
+    const timer = window.setTimeout(() => {
+      setDebouncedTerm(searchTerm);
+    }, 300);
+
+    return () => window.clearTimeout(timer);
   }, [searchTerm]);
 
   const visibleMeals = useMemo(
@@ -33,32 +41,65 @@ export default function MealsBrowser({
     [hiddenMealIds, meals],
   );
 
-  const totalPages = Math.max(1, Math.ceil(visibleMeals.length / pageSize));
-  const startIndex = (currentPage - 1) * pageSize;
-  const pageMeals = useMemo(
-    () => visibleMeals.slice(startIndex, startIndex + pageSize),
-    [startIndex, visibleMeals, pageSize],
-  );
+  const searchedMeals = useMemo(() => {
+    const normalizedTerm = debouncedTerm.trim().toLowerCase();
+
+    if (!normalizedTerm) {
+      return visibleMeals;
+    }
+
+    return visibleMeals.filter((meal) =>
+      [meal.title, meal.summary, meal.creator]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase()
+        .includes(normalizedTerm),
+    );
+  }, [debouncedTerm, visibleMeals]);
+
+  const totalPages = Math.max(1, Math.ceil(searchedMeals.length / pageSize));
+
   const isPageOutOfRange = currentPage > totalPages;
 
+  const startIndex = (currentPage - 1) * pageSize;
+
+  const pageMeals = useMemo(
+    () => searchedMeals.slice(startIndex, startIndex + pageSize),
+    [pageSize, searchedMeals, startIndex],
+  );
+
   useEffect(() => {
-    if (currentPage <= totalPages) {
+    if (!isPageOutOfRange) {
       return;
     }
 
     router.replace(totalPages > 1 ? `/meals?page=${totalPages}` : "/meals");
-  }, [currentPage, router, totalPages]);
+  }, [isPageOutOfRange, router, totalPages]);
 
-  const filteredMeals = useMemo(() => {
-    const normalized = debouncedTerm.trim().toLowerCase();
-    if (!normalized) return pageMeals;
-    return pageMeals.filter((meal) =>
-      [meal.title, meal.summary, meal.creator]
-        .join(" ")
-        .toLowerCase()
-        .includes(normalized),
-    );
-  }, [debouncedTerm, pageMeals]);
+  useEffect(() => {
+    if (!debouncedTerm || currentPage === 1) {
+      return;
+    }
+
+    router.replace("/meals");
+  }, [currentPage, debouncedTerm, router]);
+
+  function handleRestoreMeals() {
+    startTransition(() => {
+      restoreMeals();
+      router.replace("/meals");
+      router.refresh();
+    });
+  }
+
+  function handleClearSearch() {
+    setSearchTerm("");
+    setDebouncedTerm("");
+
+    if (currentPage !== 1) {
+      router.replace("/meals");
+    }
+  }
 
   if (!isLoaded) {
     return <div className={classes.emptyState}>Loading meals...</div>;
@@ -72,10 +113,11 @@ export default function MealsBrowser({
     return <div className={classes.emptyState}>Updating meals...</div>;
   }
 
-  if (pageMeals.length === 0) {
+  if (visibleMeals.length === 0) {
     return (
       <div className={classes.emptyState}>
         <p>No meals available yet. Please add yours.</p>
+
         {currentUser ? <Link href="/meals/share">+ Add Meal</Link> : null}
       </div>
     );
@@ -83,76 +125,28 @@ export default function MealsBrowser({
 
   return (
     <section className={classes.browser}>
-      <div className={classes.toolbar}>
-        <div className={classes.controls}>
-          <MealSearchBar
-            value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
-          />
-          {currentUser && hiddenMealIds.length > 0 ? (
-            <button
-              type="button"
-              className={classes.restoreButton}
-              disabled={isRestoringMeals}
-              onClick={() => {
-                startTransition(() => {
-                  restoreMeals();
-                  router.refresh();
-                });
-              }}
-            >
-              Restore Hidden Meals
-            </button>
-          ) : null}
-          {currentUser ? (
-            <Link href="/meals/share" className={classes.shareButton}>
-              Share Your Favourite Recipe
-            </Link>
-          ) : (
-            <Link
-              href="/auth?redirectTo=/meals"
-              className={classes.loginButton}
-            >
-              Log in / Sign up
-            </Link>
-          )}
-        </div>
-      </div>
+      <MealsToolbar
+        currentUser={currentUser}
+        hiddenMealCount={hiddenMealIds}
+        isRestoringMeals={isRestoringMeals}
+        searchTerm={searchTerm}
+        onSearchChange={(event) => setSearchTerm(event.target.value)}
+        onRestoreMeals={handleRestoreMeals}
+      />
 
-      {filteredMeals.length === 0 ? (
+      {pageMeals.length === 0 && debouncedTerm ? (
         <div className={classes.noResults}>
           <p>No meals match your search.</p>
-          <button type="button" onClick={() => setSearchTerm("")}>
+
+          <button type="button" onClick={handleClearSearch}>
             Clear search
           </button>
         </div>
       ) : (
-        <MealsGrid meals={filteredMeals} currentUser={currentUser} />
+        <MealsGrid meals={pageMeals} currentUser={currentUser} />
       )}
 
-      {totalPages > 1 && (
-        <div className={classes.pagination}>
-          {currentPage > 1 && (
-            <Link
-              href={`/meals?page=${currentPage - 1}`}
-              className={classes.pageButton}
-            >
-              ← Previous
-            </Link>
-          )}
-          <span className={classes.pageInfo}>
-            {currentPage} / {totalPages}
-          </span>
-          {currentPage < totalPages && (
-            <Link
-              href={`/meals?page=${currentPage + 1}`}
-              className={classes.pageButton}
-            >
-              Next →
-            </Link>
-          )}
-        </div>
-      )}
+      <MealsPagination currentPage={currentPage} totalPages={totalPages} />
     </section>
   );
 }

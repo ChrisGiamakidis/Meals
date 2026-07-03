@@ -1,0 +1,29 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.pageButton {
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  border-radius: 2rem;
+  background: linear-gradient(90deg, #f9572a, #ff9b05);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.pageButton:hover {
+  opacity: 0.88;
+}
+
+.pageInfo {
+  color: #ddd6cb;
+  font-weight: 600;
+  font-size: 1rem;
+}

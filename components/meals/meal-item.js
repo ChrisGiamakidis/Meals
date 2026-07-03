@@ -22,8 +22,10 @@ export default function MealItem({
 }) {
   const { hideMeal } = useContext(DeletedMealsContext);
   const router = useRouter();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
 
   const isSeedMeal = (() => {
     try {
@@ -32,34 +34,58 @@ export default function MealItem({
       return true;
     }
   })();
+
   const isOwner =
     Boolean(currentUser?.email && creator_email) &&
     currentUser.email.toLowerCase() === creator_email.toLowerCase();
+
   const canEditMeal = Boolean(currentUser) && !isSeedMeal && isOwner;
+
   const canHideSeedMeal = Boolean(currentUser) && isSeedMeal;
+
   const canDeleteMeal = Boolean(currentUser) && !isSeedMeal && isOwner;
+
   const canUseMealAction = canHideSeedMeal || canDeleteMeal;
 
   function handleOpenModal() {
+    setDeleteError("");
     setIsModalOpen(true);
   }
 
   function handleCloseModal() {
     if (!isDeleting) {
+      setDeleteError("");
       setIsModalOpen(false);
     }
   }
 
   async function handleConfirmDelete() {
     setIsDeleting(true);
+    setDeleteError("");
 
     try {
-      if (!isSeedMeal) {
-        await deleteMealEntry(id, image);
+      if (isSeedMeal) {
+        hideMeal(id);
+        setIsModalOpen(false);
+        return;
       }
 
-      hideMeal(id);
+      const result = await deleteMealEntry(id);
+
+      if (!result?.deleted) {
+        setDeleteError(
+          result?.message ?? "The meal could not be deleted. Please try again.",
+        );
+
+        return;
+      }
+
       setIsModalOpen(false);
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to delete meal:", error);
+
+      setDeleteError("Something went wrong while deleting the meal.");
     } finally {
       setIsDeleting(false);
     }
@@ -79,22 +105,30 @@ export default function MealItem({
               loading="eager"
             />
           </div>
+
           <div className={classes.headerText}>
             <h2>{title}</h2>
             <p>by {creator}</p>
           </div>
         </header>
+
         <p className={classes.summary}>{summary}</p>
       </Link>
+
       <div className={classes.actions}>
         <Link href={`/meals/${slug}`}>View Details</Link>
+
         {canEditMeal ? <Link href={`/meals/${slug}/edit`}>Edit</Link> : null}
+
         {canUseMealAction ? (
           <button type="button" onClick={handleOpenModal}>
             {isSeedMeal ? "Hide" : "Delete"}
           </button>
         ) : null}
       </div>
+
+      {deleteError ? <p className={classes.error}>{deleteError}</p> : null}
+
       {canUseMealAction ? (
         <DeleteMealModal
           open={isModalOpen}

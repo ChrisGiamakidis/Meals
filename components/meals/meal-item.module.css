@@ -102,3 +102,9 @@
   background: linear-gradient(90deg, #fd4715, #f9b241);
   box-shadow: 0 0 12px rgba(242, 100, 18, 0.8);
 }
+
+.error {
+  margin: 0.75rem 1rem 0;
+  color: #b42318;
+  font-size: 0.9rem;
+}
