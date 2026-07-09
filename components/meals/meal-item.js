@@ -71,12 +71,10 @@ export default function MealItem({
       }
 
       const result = await deleteMealEntry(id);
-
       if (!result?.deleted) {
         setDeleteError(
           result?.message ?? "The meal could not be deleted. Please try again.",
         );
-
         return;
       }
 
@@ -84,7 +82,6 @@ export default function MealItem({
       router.refresh();
     } catch (error) {
       console.error("Failed to delete meal:", error);
-
       setDeleteError("Something went wrong while deleting the meal.");
     } finally {
       setIsDeleting(false);
