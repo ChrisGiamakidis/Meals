@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { hasUploadedImage, validateMealImage } from "../lib/image-validation";
+import {
+  ACCEPTED_IMAGE_TYPES,
+  hasUploadedImage,
+  validateMealImage,
+} from "../lib/image-validation";
 
 function createFile(bytes, name, type = "") {
   return new File([new Uint8Array(bytes)], name, {
@@ -15,6 +19,14 @@ const JPEG_BYTES = [
 const PNG_BYTES = [
   0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x00, 0x00, 0x0d,
 ];
+
+describe("ACCEPTED_IMAGE_TYPES", () => {
+  it("exports the accepted image MIME types for form inputs", () => {
+    expect(ACCEPTED_IMAGE_TYPES).toBe(
+      "image/jpeg,image/png,image/webp,image/avif",
+    );
+  });
+});
 
 describe("hasUploadedImage", () => {
   it("returns true for a file with content", () => {

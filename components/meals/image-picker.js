@@ -1,5 +1,6 @@
 "use client";
 
+import { ACCEPTED_IMAGE_TYPES } from "@/lib/image-validation";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import classes from "./image-picker.module.css";
@@ -72,7 +73,7 @@ export default function ImagePicker({
           type="file"
           id={name}
           name={name}
-          accept="image/jpeg,image/png,image/webp,image/avif"
+          accept={ACCEPTED_IMAGE_TYPES}
           onChange={handleImageChange}
           required={required}
         />
