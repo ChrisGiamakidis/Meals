@@ -1,8 +1,8 @@
-const fs = require("node:fs");
-const path = require("node:path");
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
-const { loadLocalEnv, requireEnv } = require("../lib/environment").default;
-const { SEED_MEALS } = require("../lib/seed-data");
+import fs from "node:fs";
+import path from "node:path";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { loadLocalEnv, requireEnv } from "../lib/environment.js";
+import { SEED_MEALS } from "../lib/seed-data.js";
 
 const imageFiles = SEED_MEALS.map((m) => m.imageFileName);
 

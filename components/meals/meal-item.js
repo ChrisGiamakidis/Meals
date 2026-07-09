@@ -17,7 +17,7 @@ export default function MealItem({
   image,
   summary,
   creator,
-  creator_email,
+  creator_id,
   currentUser,
 }) {
   const { hideMeal } = useContext(DeletedMealsContext);
@@ -36,8 +36,8 @@ export default function MealItem({
   })();
 
   const isOwner =
-    Boolean(currentUser?.email && creator_email) &&
-    currentUser.email.toLowerCase() === creator_email.toLowerCase();
+    Boolean(currentUser?.id && creator_id) &&
+    Number(currentUser.id) === Number(creator_id);
 
   const canEditMeal = Boolean(currentUser) && !isSeedMeal && isOwner;
 

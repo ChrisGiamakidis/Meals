@@ -1,22 +1,6 @@
-const { createClient } = require("@tursodatabase/serverless/compat");
-const { loadLocalEnv, requireEnv } = require("../lib/environment").default;
-const { buildSeedImageUrl, SEED_MEALS } = require("../lib/seed-data");
-const { demoUsers, demoPasswordHash, demoPosts } = require("../lib/demo-users");
-
-loadLocalEnv();
-
-const db = createClient({
-  url: requireEnv("TURSO_DATABASE_URL"),
-  authToken: requireEnv("TURSO_AUTH_TOKEN"),
-});
-
-function toRows(result) {
-  return result.rows.map((row) =>
-    Object.fromEntries(
-      result.columns.map((column, index) => [column, row[index]]),
-    ),
-  );
-}
+import { db, mapRows } from "../lib/database.js";
+import { buildSeedImageUrl, SEED_MEALS } from "../lib/seed-data.js";
+import { demoUsers, demoPasswordHash, demoPosts } from "../lib/demo-users.js";
 
 async function setupDatabase() {
   await db.execute(`
@@ -28,7 +12,8 @@ async function setupDatabase() {
       summary TEXT NOT NULL,
       instructions TEXT NOT NULL,
       creator TEXT NOT NULL,
-      creator_email TEXT NOT NULL
+      creator_email TEXT NOT NULL,
+      creator_id INTEGER REFERENCES community_users(id) ON DELETE SET NULL
     )
   `);
 
@@ -99,7 +84,7 @@ async function setupDatabase() {
   const usersResult = await db.execute(
     "SELECT id, email FROM community_users WHERE is_demo = 1 ORDER BY id ASC",
   );
-  const demoUserRows = toRows(usersResult);
+  const demoUserRows = mapRows(usersResult);
   const userIdByEmail = new Map(demoUserRows.map((row) => [row.email, row.id]));
 
   for (const post of demoPosts) {
