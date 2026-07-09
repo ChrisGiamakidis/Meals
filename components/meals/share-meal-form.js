@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-
+import { INPUT_LIMITS } from "@/lib/validation";
 import classes from "@/app/meals/share/page.module.css";
 import { shareMeal, updateMeal } from "@/lib/actions";
 import ImagePicker from "./image-picker";
@@ -33,6 +33,7 @@ export default function ShareMealForm({
           type="text"
           id="title"
           name="title"
+          maxLength={INPUT_LIMITS.mealTitle}
           defaultValue={meal?.title ?? ""}
           required
         />
@@ -43,6 +44,7 @@ export default function ShareMealForm({
           type="text"
           id="summary"
           name="summary"
+          maxLength={INPUT_LIMITS.mealSummary}
           defaultValue={meal?.summary ?? ""}
           required
         />
@@ -52,6 +54,7 @@ export default function ShareMealForm({
         <textarea
           id="instructions"
           name="instructions"
+          maxLength={INPUT_LIMITS.mealInstructions}
           rows="6"
           defaultValue={meal?.instructions ?? ""}
           required
