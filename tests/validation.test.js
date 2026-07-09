@@ -7,7 +7,7 @@ import {
   validatePassword,
   validatePositiveInteger,
   validateRequiredText,
-} from "./validation";
+} from "../lib/validation";
 
 describe("normalizeText", () => {
   it("trims text values", () => {
