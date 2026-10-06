@@ -1,6 +1,6 @@
 import { db, mapRows } from "../lib/database.js";
 import { buildSeedImageUrl, SEED_MEALS } from "../lib/seed-data.js";
-import { demoUsers, demoPasswordHash, demoPosts } from "../lib/demo-users.js";
+import { demoUsers, demoPasswordHash, demoPosts } from "../lib/demo-data.js";
 
 async function setupDatabase() {
   await db.execute(`
